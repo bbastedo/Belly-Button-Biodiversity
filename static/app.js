@@ -4,17 +4,20 @@
 //1. Use the D3 library to read in `samples.json`
 //2. Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
 function chartCreation (sample){
-    d3.json("samples.json").then((data)=>{
+    d3.json('samples.json').then((data)=>{
         var samples = data.samples;
         var dataArray = samples.filter(sampleObj => sampleObj.id == sample);
-        var results = dataArray[0];
+        var result = dataArray[0];
        // Use `otu_ids` as the labels for the bar chart.
-        var otu_ids = results.otu_ids;
+        var otu_ids = result.otu_ids;
         // Use `otu_labels` as the hovertext for the chart
-        var otu_labels = results.otu_labels;
+        var otu_labels = result.otu_labels;
         // Use `sample_values` as the values for the bar chart.
-        var sample_values = results.sample_values;
-        console.log(otu_ids);
+        var sample_values = result.sample_values;
+        
+        //console.log(otu_ids);
+        //console.log(otu_labels);
+        //console.log(sample_values);
         
         //Create dataset to plot
         data = [{
@@ -29,7 +32,7 @@ function chartCreation (sample){
             title: 'Test Subject Data',
             showlegend: false,
             height:400,
-            width:500
+            width:1000
         };
         //create new bar chart plot
         Plotly.newPlot('bar', data, barLayout);
@@ -55,8 +58,8 @@ function chartCreation (sample){
     var bubbleLayout = {
         title:'Test Subject Data',
         showlegend: false,
-        height: 600,
-        width: 400 
+        height: 400,
+        width: 1200 
     };
 
     // Create new Bubble Plot
@@ -78,6 +81,19 @@ function displayMetadata(sample){
     })
 }
 
+// 6. Update all of the plots any time that a new sample is selected.
+function dropdownChange(sample){
+    d3.json("samples.json").then((data)=> {
+        var selDataset = d3.select("#selDataset");
+        var names = data.names;
+        names.forEach((name) => {
+            selDataset.append("option").text(name).property("value", name)
+        })
+        var firstSample = names[0];
+            chartCreation(firstSample);
+            displayMetadata(firstSample);
+    })
+}
 // Ff option in dropdown changes, display new sample data
 function optionChanged(sample){
     chartCreation(sample);
