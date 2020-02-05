@@ -2,7 +2,7 @@
 // Ben Bastedo 
 
 //1. Use the D3 library to read in `samples.json`
-function chart (samples){
+function barChart (samples){
     d3.json("samples.json").then((data)=>{
         var samples = data.samples;
         var dataArray = samples.filter(sampleObj => sampleObj.id == sample);
@@ -27,7 +27,7 @@ function chart (samples){
             height:400,
             width:500
         };
-        
+        //create new bar chart plot
         Plotly.newPlot("bar", data, barLayout);
 
     })
