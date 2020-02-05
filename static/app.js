@@ -20,7 +20,7 @@ function chartCreation (sample){
         //console.log(sample_values);
         
         //Create dataset to plot
-        data = [{
+        barData = [{
             type: "bar",
             orientation:'h',
             x: otu_ids.slice(0,10),
@@ -35,7 +35,7 @@ function chartCreation (sample){
             width:1000
         };
         //create new bar chart plot
-        Plotly.newPlot('bar', data, barLayout);
+        Plotly.newPlot('bar', barData, barLayout);
 
     // 3. Create a bubble chart that displays each sample.
     var trace = {
@@ -50,7 +50,7 @@ function chartCreation (sample){
             size: [40, 60, 80, 100]
             }
       };
-    var bubble = [trace];
+    var bubbleData = [trace];
     // display otu id's from sample data in console log
     console.log(otu_ids);
 
@@ -63,7 +63,7 @@ function chartCreation (sample){
     };
 
     // Create new Bubble Plot
-    Plotly.newPlot('bubble', bubble, bubbleLayout);
+    Plotly.newPlot('bubble', bubbleData, bubbleLayout);
     })
 }
 // 4. Display the sample metadata, i.e., an individual's demographic information.
