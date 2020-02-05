@@ -24,7 +24,7 @@ function chartCreation (sample){
             y: sample_values.slice(0,10),
             text: otu_labels.slice(0,10)
         }];
-
+        // create layout for bar chart
         var barLayout ={
             title: 'Test Subject Data',
             showlegend: false,
@@ -45,11 +45,12 @@ function chartCreation (sample){
             size: sample_values,
             opacity: [1, 0.8, 0.6, 0.4],
             size: [40, 60, 80, 100]
-        }
-    };
-
+            }
+      };
     var bubble = [trace];
+    // display otu id's from sample data in console log
     console.log(otu_ids);
+
     // create Bubble Chart layout
     var bubbleLayout = {
         title:'Test Subject Data',
@@ -57,6 +58,7 @@ function chartCreation (sample){
         height: 600,
         width: 400 
     };
+
     // Create new Bubble Plot
     Plotly.newPlot('bubble', bubble, bubbleLayout);
     })
@@ -71,8 +73,15 @@ function displayMetadata(sample){
         sample_metadata.html("");
         // 5. Display each key-value pair from the metadata JSON object somewhere on the page.
         Object.entries(results).forEach(([key,value]) => {
-            sample_metadata.append("h7").text(key+" : " +value)
+            sample_metadata.append("h5").text(key+" : " +value)
         })
     })
 }
 
+// Ff option in dropdown changes, display new sample data
+function optionChanged(sample){
+    chartCreation(sample);
+    displayMetadata(sample);
+}
+// Call dropdown box to activate
+dropdownChange()
